@@ -22,8 +22,9 @@ module.exports = {
             })
         })
     },
-    write(data, path = dbPath) {
+    write(list, path = dbPath) {
         return new Promise((resolve, reject) => {
+            const data = JSON.stringify(list)
             fs.writeFile(path, data, error => {
                 if (error) return reject(error)
                 resolve()
