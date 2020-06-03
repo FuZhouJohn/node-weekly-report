@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const {program} = require('commander');
 const api = require('./index.js')
+const pkg = require('./package.json')
 
 program
     .command('add')
+    .version(pkg.version)
     .description('添加一个任务,请输入任务标题：')
     .action((commander, words) => {
         if (words) {

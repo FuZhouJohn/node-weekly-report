@@ -12,5 +12,6 @@
   "dependencies": {
     "commander": "^5.1.0",
     "inquirer": "^7.1.0"
-  }
+  },
+  "repository": "git@github.com:FuZhouJohn/node-todo.git"
 }
