@@ -16,5 +16,8 @@
   "repository": "git@github.com:FuZhouJohn/node-todo.git",
   "devDependencies": {
     "jest": "^26.0.1"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
