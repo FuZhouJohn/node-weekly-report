@@ -12,7 +12,15 @@ describe('db', () => {
     })
 
 
-    it('can write', () => {
+    it('can write', async () => {
+        let fakeFile
+        fs.setWriteFileMock('/yyy', (path, data, callback) => {
+            fakeFile = data
+            callback(null)
+        })
 
+        const list = [{title: '买水', done: false}]
+        await db.write(list, '/yyy')
+        expect(fakeFile).toBe(JSON.stringify(list))
     })
 })

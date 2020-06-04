@@ -24,11 +24,11 @@ fs.setWriteFileMock = (path, fn) => {
     writeMocks[path] = fn
 }
 
-fs.writeFile = (path, data, options, callback) => {
-    if(path in writeMocks){
-        writeMocks[path](path,data,options,callback)
-    }else{
-        _fs.writeFile(path, data, options, callback)
+fs.writeFile = (path, data, callback) => {
+    if (path in writeMocks) {
+        writeMocks[path](path, data, callback)
+    } else {
+        _fs.writeFile(path, data, callback)
     }
 }
 
