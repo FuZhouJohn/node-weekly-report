@@ -35,7 +35,6 @@ if(process.argv.length === 2){
     void api.showAll()
 }else{
     program.parse(process.argv)
-
 }
 
 
