@@ -1,9 +1,7 @@
 const fs = jest.genMockFromModule('fs')
 const _fs = jest.requireActual('fs')
 
-Object.assign(fs, _fs)
-
-const readMocks = {}
+let readMocks = {}
 fs.setReadFileMock = (path, error, data) => {
     readMocks[path] = [error, data]
 }
@@ -19,7 +17,7 @@ fs.readFile = (path, options, callback) => {
     }
 }
 
-const writeMocks = {}
+let writeMocks = {}
 fs.setWriteFileMock = (path, fn) => {
     writeMocks[path] = fn
 }
@@ -30,6 +28,12 @@ fs.writeFile = (path, data, callback) => {
     } else {
         _fs.writeFile(path, data, callback)
     }
+}
+
+
+fs.clearMocks = () => {
+    readMocks = {}
+    writeMocks = {}
 }
 
 

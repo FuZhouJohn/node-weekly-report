@@ -1,26 +1,32 @@
 const db = require('../db.js')
-const fs = require('fs')
+
 jest.mock('fs')
+const fs = require('fs')
 
 
 describe('db', () => {
+    afterEach(() => {
+        fs.clearMocks()
+    })
     it('can read', async () => {
         const data = [{title: '买水', done: false}]
-        fs.setReadFileMock('/xxx', null, JSON.stringify(data))
+        const path = '/xxx'
+        fs.setReadFileMock(path, null, JSON.stringify(data))
         const list = await db.read('/xxx')
         expect(list).toStrictEqual(data)
     })
 
 
     it('can write', async () => {
-        let fakeFile
-        fs.setWriteFileMock('/yyy', (path, data, callback) => {
+        let fakeFile = undefined
+        const path = '/yyy'
+        fs.setWriteFileMock(path, (path, data, callback) => {
             fakeFile = data
             callback(null)
         })
 
         const list = [{title: '买水', done: false}]
-        await db.write(list, '/yyy')
+        await db.write(list, path)
         expect(fakeFile).toBe(JSON.stringify(list))
     })
 })
