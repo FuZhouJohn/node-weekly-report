@@ -1,8 +1,8 @@
 const db = require('../db.js')
 
-jest.mock('fs')
-const fs = require('fs')
 
+const fs = require('fs')
+jest.mock('fs')
 
 describe('db', () => {
     afterEach(() => {
@@ -12,7 +12,7 @@ describe('db', () => {
         const data = [{title: '买水', done: false}]
         const path = '/xxx'
         fs.setReadFileMock(path, null, JSON.stringify(data))
-        const list = await db.read('/xxx')
+        const list = await db.read(path)
         expect(list).toStrictEqual(data)
     })
 
