@@ -42,6 +42,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.showAll = exports.clear = exports.add = void 0;
 var db_1 = require("./db");
 var dayjs_1 = __importDefault(require("dayjs"));
+var isoWeek_1 = __importDefault(require("dayjs/plugin/isoWeek"));
+dayjs_1.default.extend(isoWeek_1.default);
 exports.add = function (title) { return __awaiter(void 0, void 0, void 0, function () {
     var list;
     return __generator(this, function (_a) {
@@ -71,7 +73,7 @@ function printAllTasks(list) {
     for (var i = list.length - 1; i >= 0; i--) {
         var task = list[i];
         var createAt = dayjs_1.default.unix(task.createAt);
-        if (createAt.isBefore(dayjs_1.default(), 'week')) {
+        if (createAt.isBefore(dayjs_1.default(), 'isoWeek')) {
             break;
         }
         console.log("- " + task.title);
