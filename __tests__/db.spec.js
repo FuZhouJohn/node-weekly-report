@@ -1,8 +1,10 @@
-const db = require('../db.js')
+'use strict';
+jest.mock('fs')
+
+const db = require('../db.ts')
 
 
 const fs = require('fs')
-jest.mock('fs')
 
 describe('db', () => {
     afterEach(() => {

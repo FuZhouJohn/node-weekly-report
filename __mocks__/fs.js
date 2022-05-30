@@ -1,4 +1,4 @@
-const fs = jest.genMockFromModule('fs')
+const fs = jest.createMockFromModule('fs')
 const _fs = jest.requireActual('fs')
 
 let readMocks = {}
