@@ -1,6 +1,6 @@
 import { write, read } from "./db";
 import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek";
+import isoWeek from "dayjs/plugin/isoWeek.js";
 import { Report } from "./types";
 
 dayjs.extend(isoWeek);
