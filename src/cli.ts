@@ -2,7 +2,7 @@
 
 import {Command} from 'commander';
 import {add, clear, showAll} from './index';
-import pkg from './package.json';
+import pkg from '../package.json';
 
 const program = new Command();
 

@@ -13,7 +13,6 @@
   "dependencies": {
     "commander": "9.3.0",
     "dayjs": "1.11.2",
-    "esno": "0.16.3",
     "inquirer": "8.2.4"
   },
   "repository": "git@github.com:FuZhouJohn/node-todo.git",
@@ -21,13 +20,16 @@
     "@types/inquirer": "8.2.1",
     "@types/jest": "27.5.1",
     "@types/node": "17.0.36",
+    "esno": "0.16.3",
+    "fast-glob": "3.2.11",
     "jest": "28.1.0",
     "ts-jest": "28.0.3",
     "ts-node": "10.8.0",
-    "typescript": "4.7.2"
+    "typescript": "4.7.2",
+    "unbuild": "0.7.4"
   },
   "scripts": {
     "test": "jest",
-    "dev": "esno cli.ts"
+    "dev": "esno src/cli.ts"
   }
 }

@@ -1,7 +1,7 @@
 'use strict';
 jest.mock('fs')
 
-const db = require('../db.ts')
+const db = require('../src/db.ts')
 
 
 const fs = require('fs')
