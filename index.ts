@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import {Report} from './types';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
-dayjs.extend(isoWeek)
+dayjs.extend(isoWeek);
 
 export const add = async (title: string) => {
     const list = await read();
@@ -18,13 +18,22 @@ export const clear = async () => {
 };
 
 function printAllTasks(list: Report[]) {
+    const taskWeekly = [];
     for (let i = list.length - 1; i >= 0; i--) {
         const task = list[i];
         const createAt = dayjs.unix(task.createAt);
         if (createAt.isBefore(dayjs(), 'isoWeek')) {
             break;
         }
-        console.log(`- ${task.title}`);
+        taskWeekly.unshift(`- ${task.title}`);
+    }
+
+    if (taskWeekly.length > 0) {
+        taskWeekly.forEach(text => {
+            console.log(text);
+        });
+    } else {
+        console.log('暂无记录');
     }
 }
 

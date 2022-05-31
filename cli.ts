@@ -16,6 +16,7 @@ program
     .description('添加一个任务,请输入任务标题：')
     .argument('<title>', '任务标题')
     .action((title, options) => {
+        console.log(title);
         if (title) {
             add(title).then(() => {
                 console.log('任务添加成功');
