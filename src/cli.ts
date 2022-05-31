@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { add, clear, showAll } from "./index";
+import { add, clear, showAll, showWeekly } from "./index";
 import pkg from "../package.json";
 
 const program = new Command();
@@ -15,7 +15,7 @@ program
   .command("add")
   .description("添加一个任务,请输入任务标题：")
   .argument("<title>", "任务标题")
-  .action((title, options) => {
+  .action((title) => {
     if (title) {
       add(title).then(
         () => {
@@ -27,6 +27,18 @@ program
       );
     } else {
       console.log("请输入任务标题");
+    }
+  });
+
+program
+  .command("list")
+  .description("显示任务列表，默认显示本周任务")
+  .option("-a", "show all tasks")
+  .action((option) => {
+    if (option.a) {
+      showAll();
+    } else {
+      showWeekly(true);
     }
   });
 
@@ -45,7 +57,7 @@ program
   });
 
 if (process.argv.length === 2) {
-  void showAll();
+  void showWeekly(false);
 } else {
   program.parse(process.argv);
 }

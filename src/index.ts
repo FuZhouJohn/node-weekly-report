@@ -1,14 +1,13 @@
 import { write, read } from "./db";
 import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek.js";
+import { createTask, getWeeklyTasks } from "./task";
 import { Report } from "./types";
-
-dayjs.extend(isoWeek);
+import { printTable } from "console-table-printer";
 
 export const add = async (title: string) => {
   const list = await read();
-
-  list.push({ title, createAt: dayjs().unix() });
+  const task = createTask(title, dayjs().unix());
+  list.push(task);
 
   await write(list);
 };
@@ -17,27 +16,44 @@ export const clear = async () => {
   await write([]);
 };
 
-function printAllTasks(list: Report[]) {
-  const taskWeekly = [];
-  for (let i = list.length - 1; i >= 0; i--) {
-    const task = list[i];
-    const createAt = dayjs.unix(task.createAt);
-    if (createAt.isBefore(dayjs(), "isoWeek")) {
-      break;
-    }
-    taskWeekly.unshift(`- ${task.title}`);
-  }
+export const showAll = async () => {
+  const list = await read();
+  printTaskUseTable(list);
+};
 
-  if (taskWeekly.length > 0) {
-    taskWeekly.forEach((text) => {
-      console.log(text);
-    });
+export const showWeekly = async (fromList: boolean) => {
+  const list = await read();
+  const taskWeekly = getWeeklyTasks(list, dayjs());
+  printTasks(taskWeekly, fromList);
+};
+
+export function printTasks(list: Report[], fromList: boolean) {
+  if (list.length > 0) {
+    if (fromList) {
+      printTaskUseTable(list);
+    } else {
+      list.forEach((task) => {
+        console.log(`- ${task.title}`);
+      });
+    }
   } else {
     console.log("暂无记录");
   }
 }
 
-export const showAll = async () => {
-  const list = await read();
-  printAllTasks(list);
-};
+export function printTaskUseTable(list: Report[]) {
+  if (list.length === 0) {
+    console.log("暂无记录");
+    return;
+  }
+  const cloneList = JSON.parse(JSON.stringify(list));
+  printTable(
+    cloneList.map((i: Report) => {
+      return {
+        name: i.title,
+        createAt: dayjs.unix(i.createAt).format("YYYY-MM-DD HH:mm:ss"),
+        id: i.id,
+      };
+    })
+  );
+}
