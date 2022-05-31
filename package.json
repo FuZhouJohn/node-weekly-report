@@ -1,21 +1,44 @@
 {
-  "name": "bass-node-todo",
-  "bin": {
-    "t": "dist/cli.js"
+  "name": "@zhuangjinan/nwr",
+  "version": "0.0.1",
+  "packageManager": "pnpm@7.0.0",
+  "description": "Node Weekly Report Tool",
+  "license": "MIT",
+  "author": "ZhuangJiNan <a492073467@gmail.com>",
+  "repository": "git@github.com:FuZhouJohn/node-weekly-report.git",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   },
   "files": [
-    "*.js",
-    "*.ts"
+    "dist",
+    "bin"
   ],
-  "version": "0.0.4",
-  "main": "index.ts",
-  "license": "MIT",
+  "bin": {
+    "t": "bin/cli.mjs"
+  },
+  "bugs": {
+    "url": "https://github.com/FuZhouJohn/node-weekly-report/issues"
+  },
+  "homepage": "https://github.com/FuZhouJohn/node-weekly-report#readme",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "dev": "esno src/cli.ts",
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "release": "npx bumpp --commit --push --tag"
+  },
   "dependencies": {
     "commander": "9.3.0",
     "dayjs": "1.11.2",
     "inquirer": "8.2.4"
   },
-  "repository": "git@github.com:FuZhouJohn/node-todo.git",
   "devDependencies": {
     "@types/inquirer": "8.2.1",
     "@types/jest": "27.5.1",
@@ -27,9 +50,5 @@
     "ts-node": "10.8.0",
     "typescript": "4.7.2",
     "unbuild": "0.7.4"
-  },
-  "scripts": {
-    "test": "jest",
-    "dev": "esno src/cli.ts"
   }
 }
